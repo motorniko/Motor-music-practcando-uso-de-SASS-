@@ -1,0 +1,36 @@
+@use "sass:color"; //esto importa el modulo de color
+
+// backgrounds
+$bg: #000;
+$bg-secondary: #340422;
+$bg-tertiary: #f36801;
+
+// aqui cree uuna variable compuesta: es una variable que ya va con datos css integrados.
+$bg-principal-cont: url('../assets/logo.gif') center / cover no-repeat;
+
+
+// variable compuesta : para poder dibujar el gradient debe utilizar 2 variables las cuales deden estar declaradas de forma anticipada(antes de este bloque).
+$bg-slider-cont: linear-gradient( 
+  120deg,
+  $bg-tertiary, /*reutiliza esta variable para dibujar el gradient*/
+  $bg-secondary, /*reutiliza esta variable para dibujar el gradient*/
+  color.adjust($bg-tertiary, $lightness: 8%)
+);
+
+// text
+$title-size: 55px;
+$text-size: 25px;
+$text-small: 12px;
+$text-primary: #daa520;
+$text-secondary: #ffffff;
+$no-decoration: none;
+
+// radius
+$br-radius-xs: 14px;
+$br-radius-m: 40px;
+$br-radius-xl: 50px;
+
+// buttons
+$btn-size: 42px;
+$btn-bg: rgba(218, 165, 32, 0.9);
+$transition: 0.45s cubic-bezier(.4, 0, .2, 1);

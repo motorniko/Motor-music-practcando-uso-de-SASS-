@@ -1,0 +1,19 @@
+footer {
+  height: 40px;
+  width: 90%;
+  max-width: 800px;
+  background-color: $bg-secondary;
+  border-radius: $br-radius-xl;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    text-decoration: $no-decoration;
+    color: $text-secondary;
+  }
+
+  p {
+    font-size: $text-small;
+  }
+}

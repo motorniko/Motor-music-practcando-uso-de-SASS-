@@ -1,0 +1,225 @@
+@use "sass:color"; // esto importa el modulo de color, es parecido a lo que hace el import en React.
+
+
+// bacgrouns
+$bg: #000;
+$bg-secondary: #340422;
+$bg-tertiary: #f36801;
+
+//background con variables compuesta.
+// como dato : una variable compuesta contiene más de un valor CSS al mismo tiempo,
+$bg-principal-cont: url('../assets/logo.gif') center / cover no-repeat;
+
+$bg-slider-cont: linear-gradient(
+  120deg,
+  $bg-tertiary, /* reutiliza bg-tertiary y bg-secondary para crear el gradiente */
+  $bg-secondary, /* la variable debe estar definida antes de reutilizarse */
+  color.adjust($bg-tertiary, $lightness: 8%)
+);
+
+
+//title and text
+$title-size: 55px;
+$text-primary: #daa520;
+$text-secondary: #ffffff;
+$text-size: 25px;
+$text-small: 12px;
+$no-decoration: none;
+
+//border radius
+$br-radius-xs: 14px;
+$br-radius-m:40px;
+$br-radius-xl: 50px;
+
+//buttons
+$btn-size: 42px;
+$btn-bg: rgba(218, 165, 32, 0.9);
+
+$transition: 0.45s cubic-bezier(.4, 0, .2, 1);
+
+//........................................................//
+
+
+body {
+  height: 100%;
+}
+
+body {
+  margin: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: $bg;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+}
+
+.title__cont{
+
+  background: $bg-principal-cont;
+  width: 40%;
+  height: 150px;
+  border-radius: $br-radius-m;
+  margin-bottom: 30px;
+
+  h1 {
+    color: $text-primary;
+    font-size: $title-size;
+  }
+
+p {
+    color: $text-secondary;
+    font-size: $text-size;
+
+    margin-top: -30px; 
+    margin-bottom: 85px; 
+  }
+}
+
+.cont__slider {
+    flex: 1;
+    width: 95%;
+    max-width: 1400px;
+    margin: 40px auto;
+    padding-top: 80px;
+    padding-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $bg-slider-cont;
+    background-size: 300% 300%;
+    animation: gradientMove 20s ease infinite;
+    border-radius: $br-radius-m;
+  }
+
+// Slider
+
+.slider {
+  position: relative;
+  width: 700px;
+  perspective: 1200px;
+
+  &__slides {
+    position: relative;
+    height: 420px;
+    transform-style: preserve-3d;
+  }
+
+  &__slide {
+    position: absolute;
+    left: 50%;
+    width: 100%;
+
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6) translateZ(-200px);
+    transition: all $transition;
+
+    z-index: 1;
+    filter: blur(6px);
+
+    iframe {
+      width: 100%;
+      height: 352px;
+      border-radius: $br-radius-xs;
+      border: none;
+    }
+
+    &.is-active {
+      opacity: 1;
+      transform: translateX(-50%) scale(1) translateZ(0);
+      z-index: 4;
+      filter: none;
+    }
+
+    &.is-prev {
+      opacity: 0.7;
+      transform: translateX(-95%) scale(0.8) translateZ(-120px);
+      z-index: 3;
+      filter: blur(2px);
+    }
+
+    &.is-next {
+      opacity: 0.7;
+      transform: translateX(-5%) scale(0.8) translateZ(-120px);
+      z-index: 3;
+      filter: blur(2px);
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $btn-size;
+    height: $btn-size;
+    border-radius: $br-radius-xl;
+    border: none;
+    background: $btn-bg;
+    color: #000;
+    font-size: 1.6rem;
+    cursor: pointer;
+    z-index: 10;
+
+    &--prev { left: -60px; }
+    &--next { right: -60px; }
+  }
+}
+
+// Footer
+
+footer {
+  height: 40px;
+  margin: 30px auto 40px;
+  width: 90%;
+  max-width: 800px;
+  background-color: $bg-secondary;
+  border-radius: $br-radius-xl;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .text__link__foot {
+    margin-top: 10px;
+    margin-right: 120px;
+    font-size: $text-small;
+    color: $text-secondary;
+  }
+
+   a{
+      text-decoration: $no-decoration;
+      color: $text-secondary;
+   }
+
+  .text__des__foot{
+    margin-left: 120px;
+    color: $text-secondary;
+     margin-top: 10px;
+    font-size: $text-small;
+    color: $text-secondary;
+  }
+}
+
+// Animaciones
+
+@keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// Responsive
+
+@media (max-width: 768px) {
+  h1 { font-size: 38px; }
+  p  { font-size: 18px; }
+
+  .slider {
+    width: 90%;
+
+    &__btn {
+      &--prev { left: -35px; }
+      &--next { right: -35px; }
+    }
+  }
+}
